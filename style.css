@@ -27,7 +27,10 @@ body{
 .grid{
     height: 85vh;
     width: 100vw;
-    background-color: #F8EFBA;
+    background-color: #f8f3d5;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .filters, .action-buttons{
@@ -59,8 +62,8 @@ body{
  
 
 .filter div{
-    height: 50%;
-    width: 50%;
+    height: 45%;
+    width: 45%;
     border-radius: 8px;
 }
 
@@ -100,6 +103,7 @@ body{
 }
 
 .material-icons{
+    cursor: default;
     font-size: 2rem!important;
 }
 
@@ -108,9 +112,8 @@ body{
 }
 
 .modal{
-    width: 35rem;
-    height: 20rem;
-    background-color: #fd9644;
+    width: 45rem;
+    height: 25rem;
 
     /* position fixed will fix its pos wrt body and stick to it doesn't interact with other elements */
     position: fixed;
@@ -119,4 +122,96 @@ body{
 
     /* transform property to move elements % refers to element's own width and height */
     transform: translateX(-50%);
+    display: flex;
+}
+
+.task-section{
+    height: 100%;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fd9644;
+}
+
+.task-inner-container{
+    height: 86%;
+    width: 88%;
+    background-color: #ffeaa7;
+    outline: none;
+    font-size: 1.2rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 10px;
+
+    /* to prevent from overflow */
+    overflow: auto; 
+}
+
+.filters-section{
+    height: 100%;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2f3640;
+}
+
+.filters-inner-container{
+    height: 80%;
+    width: 60%;
+    display: flex;
+
+    /* direction change to column it will align its child vertically */
+    flex-direction: column; 
+
+    /* justify content work in same direction of flex, it will give equal spaces b/w children elements vertically */
+    justify-content: space-evenly;
+
+    /* align items work in opposite direction of flex, it will align center the children elements horizontally. */
+    align-items: center;
+    /* background-color: #f8f3d5; */
+    background-color: white;
+}
+
+.filter-color{
+    width: 75%;
+    height: 20%;
+}
+
+.filter-color:hover{
+    border: 8px solid #fd9644;
+}
+
+.selected{
+    border: 8px solid #fd9644;
+}
+
+.ticket{
+    width: 20rem;
+    height: 12rem;
+    margin: 10px;
+    border: 2px solid;
+    /* box-shadow: -5px -5px 10px saddlebrown; */
+}
+
+.ticket-color{
+    width: 100%;
+    height: 8%;
+}
+
+.ticket-id{
+    width: 100%;
+    height: 15%;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.actual-task{
+    width: 100%;
+    height: 77%;
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #fdcb6e;
+    overflow: auto;
+    overflow-wrap: break-word;
 }

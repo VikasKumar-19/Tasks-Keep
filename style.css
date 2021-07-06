@@ -1,0 +1,122 @@
+*{
+    /* height and width of divs consists padding and border by this property */
+    box-sizing: border-box;           
+}
+
+body{
+    /* as body gives some margin by default */
+    margin: 0;
+}
+
+.container{
+    height: 100vh;
+    width: 100vw;
+}
+
+.navbar{
+    height: 15vh;
+    width: 100vw;
+    background-color: #596275;
+
+    /* flex is used to align div boxes horizontally */
+    display: flex;
+    
+    /* align-items: center; */
+}
+
+.grid{
+    height: 85vh;
+    width: 100vw;
+    background-color: #F8EFBA;
+}
+
+.filters, .action-buttons{
+    height: 50%;
+    background-color: #2f3640;
+    /* margin-top: 25%;   margin doesn't take  */
+
+    /* this calc() function perform mathematical calculation b/w units */
+    margin-top: calc( (25 / 100) * 15vh);  
+    margin-left: 8rem;
+}
+
+.filters{
+    width: 16rem;
+    display: flex;
+}
+
+.filter{
+    height: 100%;
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter:hover{
+    background-color: #8395a7;
+}
+ 
+
+.filter div{
+    height: 50%;
+    width: 50%;
+    border-radius: 8px;
+}
+
+
+.pink{
+    background-color: #ff9ff3;
+}
+
+.blue{
+    background-color: #4b7bec;
+}
+
+.green{
+    background-color: #20bf6b;
+}
+
+.black{
+    background-color: black;
+} 
+
+.action-buttons{
+    width: 8rem;
+    display: flex;
+}
+
+.add, .delete{
+    height: 100%;
+    width: 50%;
+    color: white;
+    display: flex;
+
+    /* justify content align items in direction of flex */
+    justify-content: center;
+
+    /* align-items will align items in opp direction of flex */
+    align-items: center;
+}
+
+.material-icons{
+    font-size: 2rem!important;
+}
+
+.add:hover,.delete:hover{
+    background-color: #8395a7;
+}
+
+.modal{
+    width: 35rem;
+    height: 20rem;
+    background-color: #fd9644;
+
+    /* position fixed will fix its pos wrt body and stick to it doesn't interact with other elements */
+    position: fixed;
+    top: 20vh;
+    left: 50%;
+
+    /* transform property to move elements % refers to element's own width and height */
+    transform: translateX(-50%);
+}

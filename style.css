@@ -216,4 +216,5 @@ body{
     background-color: #fdcb6e;
     overflow: auto;
     overflow-wrap: break-word;
+    outline: none;
 }

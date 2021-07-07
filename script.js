@@ -5,6 +5,12 @@ let deleteBtn = document.querySelector('.delete')
 
 let colors = ["pink", "green", "blue", "black"];
 
+if(localStorage.getItem("allTickets") == undefined){
+    let allTickets = {};
+    allTickets = JSON.stringify(allTickets);
+    localStorage.setItem("allTickets", allTickets);
+}
+
 let deleteMode = false;       //default deleteMode value
 
 //turn on the delete mode if deleteBtn got clicked first time and if second time then turn off the deleteMode
@@ -75,24 +81,58 @@ addBtn.addEventListener('click',function(){
     taskInnerContainer.addEventListener('keydown', function(ev){
         if(ev.key == 'Enter'){                  //On pressing enter ticket will be created
 
-            let ticketDiv = document.createElement('div');
-            ticketDiv.classList.add('ticket');
-
             //this uid function we have received from shortUniqueId() on including library. check the script tag in html
             let id = uid()         // this function generate unique ID which we have to give to a ticket. //
+            
+            let task = ev.currentTarget.innerText; // the task which we want to save in a ticket.
+
+            //step 1: jobhi data hai localStorage use lekar aao
+            let allTickets = JSON.parse(localStorage.getItem("allTickets"));
+
+            //step 2: usko update karo
+            let ticketObj = {
+                color: ticketColor,
+                taskValue: task
+            }
+
+            allTickets[id] = ticketObj;
+
+            //step 3: wapis updated object ko localStorage me save kardo
+            localStorage.setItem("allTickets", JSON.stringify(allTickets));
+
+
+            let ticketDiv = document.createElement('div');
+            ticketDiv.classList.add('ticket');
+            ticketDiv.setAttribute('dataId', id);
+
 
             //saving task info and color in ticket
-            ticketDiv.innerHTML = `<div class="ticket-color ${ticketColor}"></div>          
+            //we are also saving dataId in both ticket-color and actual-task because when we change them we need to save in localStorage.
+            ticketDiv.innerHTML = `<div class="ticket-color ${ticketColor}"  dataId="${id}" ></div>          
             <div class="ticket-id">
                 #${id}
             </div>
-            <div class="actual-task">
-                ${taskInnerContainer.innerText}
+            <div class="actual-task" dataId="${id}" contenteditable="true">
+                ${task}
             </div>`;
             
             //when we will click a ticket if deleteMode is on then ticket must be deleted.
             ticketDiv.addEventListener('click', function(ev){
+                
                 if(deleteMode == true){
+
+                    //for saving in local storage also we have to do again those 3 steps
+                    //step 1: jobhi data hai localStorage use lekar aao
+                    let allTickets = JSON.parse(localStorage.getItem("allTickets"));
+
+                    //step 2: usko update karo
+                    let thisTicketId = ev.currentTarget.getAttribute("dataId"); //here we get id by this dataId attribute.
+                    
+                    delete allTickets[thisTicketId];   //deleting this ticket using it's ID
+
+                    //step 3: wapis updated object ko localStorage me save kardo
+                    localStorage.setItem("allTickets", JSON.stringify(allTickets));
+
                     ev.currentTarget.remove();
                 }
             })
@@ -113,6 +153,34 @@ addBtn.addEventListener('click',function(){
                 let newColor = colors[idx];
                 ev.currentTarget.classList.remove(currColor)
                 ev.currentTarget.classList.add(newColor);
+
+                //for saving in local storage also we have to do again those 3 steps
+                //step 1: jobhi data hai localStorage use lekar aao
+                let allTickets = JSON.parse(localStorage.getItem("allTickets"));
+
+                //step 2: usko update karo
+                let thisTicketId = ev.currentTarget.getAttribute("dataId"); //here we get id by this dataId attribute.
+                
+                allTickets[thisTicketId].color = newColor;
+
+                //step 3: wapis updated object ko localStorage me save kardo
+                localStorage.setItem("allTickets", JSON.stringify(allTickets));
+            })
+
+            let actualTaskDiv = ticketDiv.querySelector('.actual-task');
+
+            actualTaskDiv.addEventListener('input', function(ev){        //input event will triggered when you type something
+               let updatedTask = ev.currentTarget.innerText; //this will give updated task value which we have to save in localStorage.
+
+               //step 1: jobhi data hai localStorage use lekar aao
+               let allTickets = JSON.parse(localStorage.getItem("allTickets"));
+                
+               //step 2: usko update karo
+               let thisTicketId = ev.currentTarget.getAttribute("dataId"); //here we get id by this dataId attribute.
+               allTickets[thisTicketId].taskValue = updatedTask;
+
+                // step 3: wapis updated object ko localStorage me save kardo
+                localStorage.setItem("allTickets", JSON.stringify(allTickets));
             })
 
             div.remove();

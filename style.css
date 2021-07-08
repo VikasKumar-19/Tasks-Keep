@@ -56,7 +56,7 @@ body{
     align-items: center;
 }
 
-.filter:hover{
+.filter:hover,.filter-selected{
     background-color: #8395a7;
 }
  

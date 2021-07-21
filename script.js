@@ -85,7 +85,7 @@ addBtn.addEventListener('click',function(){
 
     // Now we add its inner components by setting it's innerHTML now complete modal will appear on the screen on clicking the button
     div.innerHTML = `   <div class="task-section">
-                            <div class="task-inner-container" contenteditable="true"></div>
+                            <div class="task-inner-container init-font" data-typed="false" contenteditable="true">Enter your task here...</div>
                         </div>
                         <div class="filters-section">
                             <div class="filters-inner-container">
@@ -93,6 +93,7 @@ addBtn.addEventListener('click',function(){
                                 <div class="filter-color green"></div>
                                 <div class="filter-color blue"></div>
                                 <div class="filter-color black selected"></div>
+                                <div class="add-task-btn">ADD TASK</div>
                             </div>
                         </div>`
 
@@ -116,13 +117,32 @@ addBtn.addEventListener('click',function(){
 
     let taskInnerContainer = div.querySelector('.task-inner-container');    //selecting task-inner-container
 
-    taskInnerContainer.addEventListener('keydown', function(ev){
-        if(ev.key == 'Enter'){                  //On pressing enter ticket will be created
+    //this helps to remove placeholder in modal
+    taskInnerContainer.addEventListener('click', function(){
+        let typedStatus = taskInnerContainer.getAttribute("data-typed");
+        if(typedStatus == "false"){
+            taskInnerContainer.innerText = "";
+            taskInnerContainer.setAttribute("data-typed", "true");
+            taskInnerContainer.classList.remove("init-font");
+        }
+    })
+
+    let addTaskBtn = div.querySelector(".add-task-btn");
+    addTaskBtn.addEventListener('click', function(ev){
+            //On pressing enter ticket will be created
 
             //this uid function we have received from shortUniqueId() on including library. check the script tag in html
             let id = uid()         // this function generate unique ID which we have to give to a ticket. //
             
-            let task = ev.currentTarget.innerText; // the task which we want to save in a ticket.
+            let task = taskInnerContainer.innerText; // the task which we want to save in a ticket.
+
+            //if no task is enterd don't create ticket.. instead ask him again to enter the task.
+            if(task.length == 0){
+                taskInnerContainer.setAttribute("data-typed", "false");
+                taskInnerContainer.classList.add("init-font");
+                taskInnerContainer.innerText = "Enter your task here...";
+                return;
+            }
 
             //step 1: jobhi data hai localStorage use lekar aao
             let allTickets = JSON.parse(localStorage.getItem("allTickets"));
@@ -139,7 +159,7 @@ addBtn.addEventListener('click',function(){
             localStorage.setItem("allTickets", JSON.stringify(allTickets));
 
 
-            let ticketDiv = document.createElement('div');  //creating ticket div on pressing the enter
+            let ticketDiv = document.createElement('div');  //creating ticket div on clicking the addTask button
             ticketDiv.classList.add('ticket');              //setting the class ticket for styling
             ticketDiv.setAttribute('dataId', id);           //giving unique id we have generated
 
@@ -151,9 +171,14 @@ addBtn.addEventListener('click',function(){
                 #${id}
             </div>
             <div class="actual-task" dataId="${id}" contenteditable="true">
-                ${task}
             </div>`;
-            
+
+            //we cannot set the task by just giving in html in string for the tasks which include "\n and more than 1 space"
+            //as we know that in html it doesn't register more than one space and enter. It simply register only one space if put task in html.
+
+            let actualTaskDiv = ticketDiv.querySelector('.actual-task');  //this will select the ticket's actualTask area
+            actualTaskDiv.innerText = task;  //to display the task which we have entered in the ticket
+
             //when we will click a ticket if deleteMode is on then ticket must be deleted.
             ticketDiv.addEventListener('click', function(ev){
                 
@@ -177,10 +202,7 @@ addBtn.addEventListener('click',function(){
             
             //we are adding event listeners for created ticket now
             // on clicking color of the created tickets, event triggered to change color of tickets
-            let ticketColorDiv = ticketDiv.querySelector('.ticket-color');  //this will select the ticketcolordiv
-
-            //on editing the task, the localStorageData in which we have stored taskValue shall also get updated 
-            let actualTaskDiv = ticketDiv.querySelector('.actual-task');    //this will select the ticket's actualTask area
+            let ticketColorDiv = ticketDiv.querySelector('.ticket-color');  //this will select the ticketcolordiv 
 
             ticketColorDiv.addEventListener('click', function(ev){
                 let idx = -1;
@@ -209,6 +231,7 @@ addBtn.addEventListener('click',function(){
                 localStorage.setItem("allTickets", JSON.stringify(allTickets));
             })
 
+            //on editing the task in the ticket, the localStorageData in which we have stored taskValue shall also get updated 
             actualTaskDiv.addEventListener('input', function(ev){        //input event will triggered when you type something
                let updatedTask = ev.currentTarget.innerText; //this will give updated task value which we have to save in localStorage.
 
@@ -225,16 +248,16 @@ addBtn.addEventListener('click',function(){
 
             div.remove();
             grid.append(ticketDiv);
+    });
 
-        }
-        
-        //the modal will be close and ticket will not be created 
-        else if(ev.key == 'Escape'){
+    //the modal will be close and ticket will not be created 
+    taskInnerContainer.addEventListener('keydown', function(ev){
+        if(ev.key == "Escape"){
             div.remove();
         }
     })
 
-    body.append(div); //this will append this element in body
+    body.append(div); //this will show the task-modal on the page.
 })
 
 
@@ -281,16 +304,15 @@ function loadTickets(color){
             #${currentTicketId}
         </div>
         <div class="actual-task" dataId="${currentTicketId}" contenteditable="true">
-            ${singleTicketObj.taskValue}
         </div>`;
+
+        let actualTaskDiv = ticketDiv.querySelector('.actual-task');    //this will select the ticket's actualTask area
+        actualTaskDiv.innerText = singleTicketObj.taskValue;
 
         //attaching required eventListeners to each ticket object
         //we are adding event listeners for created ticket now
         // on clicking color of the created tickets, event triggered to change color of tickets
-        let ticketColorDiv = ticketDiv.querySelector('.ticket-color');  //this will select the ticketcolordiv
-
-        //on editing the task, the localStorageData in which we have stored taskValue shall also get updated 
-        let actualTaskDiv = ticketDiv.querySelector('.actual-task');    //this will select the ticket's actualTask area
+        let ticketColorDiv = ticketDiv.querySelector('.ticket-color');  //this will select the ticketcolordiv 
 
         ticketColorDiv.addEventListener('click', function(ev){
             let idx = -1;
@@ -319,6 +341,7 @@ function loadTickets(color){
             localStorage.setItem("allTickets", JSON.stringify(allTickets));
         })
 
+        //on editing the task, the localStorageData in which we have stored taskValue shall also get updated
         actualTaskDiv.addEventListener('input', function(ev){        //input event will triggered when you type something
             let updatedTask = ev.currentTarget.innerText; //this will give updated task value which we have to save in localStorage.
 

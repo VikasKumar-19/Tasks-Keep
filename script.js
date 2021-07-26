@@ -47,7 +47,7 @@ if(localStorage.getItem("allTickets") == undefined){
 
 //this loadTickets() function will be called every time when the app starts 
 //so that the tickets which are stored in allTickets object will be shown ON UI or DOM.
-loadTickets(); 
+// loadTickets(); 
 
 let deleteMode = false;       //default deleteMode value
 
@@ -137,7 +137,7 @@ addBtn.addEventListener('click',function(){
             let task = taskInnerContainer.innerText; // the task which we want to save in a ticket.
 
             //if no task is enterd don't create ticket.. instead ask him again to enter the task.
-            if(task.length == 0){
+            if(task.length == 0 || task == "Enter your task here..."){
                 taskInnerContainer.setAttribute("data-typed", "false");
                 taskInnerContainer.classList.add("init-font");
                 taskInnerContainer.innerText = "Enter your task here...";

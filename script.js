@@ -47,7 +47,7 @@ if(localStorage.getItem("allTickets") == undefined){
 
 //this loadTickets() function will be called every time when the app starts 
 //so that the tickets which are stored in allTickets object will be shown ON UI or DOM.
-// loadTickets(); 
+loadTickets(); 
 
 let deleteMode = false;       //default deleteMode value
 
@@ -134,7 +134,7 @@ addBtn.addEventListener('click',function(){
             //this uid function we have received from shortUniqueId() on including library. check the script tag in html
             let id = uid()         // this function generate unique ID which we have to give to a ticket. //
             
-            let task = taskInnerContainer.innerText; // the task which we want to save in a ticket.
+            let task = taskInnerContainer.innerHTML; // the task which we want to save in a ticket.
 
             //if no task is enterd don't create ticket.. instead ask him again to enter the task.
             if(task.length == 0 || task == "Enter your task here..."){
@@ -177,7 +177,7 @@ addBtn.addEventListener('click',function(){
             //as we know that in html it doesn't register more than one space and enter. It simply register only one space if put task in html.
 
             let actualTaskDiv = ticketDiv.querySelector('.actual-task');  //this will select the ticket's actualTask area
-            actualTaskDiv.innerText = task;  //to display the task which we have entered in the ticket
+            actualTaskDiv.innerHTML = task;  //to display the task which we have entered in the ticket
 
             //when we will click a ticket if deleteMode is on then ticket must be deleted.
             ticketDiv.addEventListener('click', function(ev){
@@ -233,7 +233,7 @@ addBtn.addEventListener('click',function(){
 
             //on editing the task in the ticket, the localStorageData in which we have stored taskValue shall also get updated 
             actualTaskDiv.addEventListener('input', function(ev){        //input event will triggered when you type something
-               let updatedTask = ev.currentTarget.innerText; //this will give updated task value which we have to save in localStorage.
+               let updatedTask = ev.currentTarget.innerHTML; //this will give updated task value which we have to save in localStorage.
 
                //step 1: jobhi data hai localStorage use lekar aao
                let allTickets = JSON.parse(localStorage.getItem("allTickets"));
@@ -307,7 +307,7 @@ function loadTickets(color){
         </div>`;
 
         let actualTaskDiv = ticketDiv.querySelector('.actual-task');    //this will select the ticket's actualTask area
-        actualTaskDiv.innerText = singleTicketObj.taskValue;
+        actualTaskDiv.innerHTML = singleTicketObj.taskValue;
 
         //attaching required eventListeners to each ticket object
         //we are adding event listeners for created ticket now
@@ -343,7 +343,7 @@ function loadTickets(color){
 
         //on editing the task, the localStorageData in which we have stored taskValue shall also get updated
         actualTaskDiv.addEventListener('input', function(ev){        //input event will triggered when you type something
-            let updatedTask = ev.currentTarget.innerText; //this will give updated task value which we have to save in localStorage.
+            let updatedTask = ev.currentTarget.innerHTML; //this will give updated task value which we have to save in localStorage.
 
             //step 1: jobhi data hai localStorage use lekar aao
             let allTickets = JSON.parse(localStorage.getItem("allTickets"));

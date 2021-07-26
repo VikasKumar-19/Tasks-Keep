@@ -42,7 +42,7 @@ body{
 
     /* this calc() function perform mathematical calculation b/w units */
     /* margin-top: calc( (25 / 100) * 15vh);   */
-    margin-left: 8%;
+    margin-left: 5%;
     border-radius: 10px;
     box-shadow: 0px 0px 4px 2.5px rgb(248, 150, 37);
 }
@@ -120,7 +120,7 @@ body{
 }
 
 .head-title{
-    margin-left: 20%;
+    margin-left: 15%;
     margin-right: 10%;
     font-size: 1.3rem;
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -246,11 +246,12 @@ body{
 
 .ticket-id{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    color: dimgray;
     width: 100%;
     height: 10%;
     padding: 5px;
-    font-weight: 800;
+    font-weight: 600;
     display: flex;
     align-items: center;
 }
@@ -267,20 +268,29 @@ body{
 }
 
 .format-tools{
-    width: 100%;
-    height: 15%;
-    background-color: #f8f3d5;
+    width: 16%;
+    height: 50%;
+    margin-left: 5%;
+    background-color: #2f3640;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px 2.5px rgb(248, 150, 37);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    box-shadow: 0px 0px 3px 1px rgb(70, 45, 12);
-
 }
 
-.bold,.italic,.underline,.strike{
-    font-size: 1.5rem!important;
-    padding: 0px 10px;
+.bold, .italic, .underline, .strike{
+    width: 22%;
+    border: none;
+    outline: none;
+    background-color: #2f3640;
+    display: flex;
+}
+
+.bold span,.italic span,.underline span,.strike span{
+    font-size: 2rem!important;
+    color: white!important;
 }
 .bold:hover,.italic:hover,.underline:hover,.strike:hover{
-    background-color: #fdcb6e;
+    background-color: orange;
 }

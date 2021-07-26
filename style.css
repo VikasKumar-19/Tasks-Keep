@@ -201,10 +201,11 @@ body{
 .filter-color{
     width: 75%;
     height: 15%;
+    transition-duration: 0.18s;
 }
 
 .filter-color:hover{
-    border: 8px solid #fd9644;
+    transform: scaleX(1.25);
 }
 
 .selected{

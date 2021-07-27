@@ -85,7 +85,7 @@ addBtn.addEventListener('click',function(){
 
     // Now we add its inner components by setting it's innerHTML now complete modal will appear on the screen on clicking the button
     div.innerHTML = `   <div class="task-section">
-                            <div class="task-inner-container init-font" data-typed="false" contenteditable="true">Enter your task here...</div>
+                            <div class="task-inner-container init-font" data-typed="false" contenteditable="true" spellcheck="false">Enter your task here...</div>
                         </div>
                         <div class="filters-section">
                             <div class="filters-inner-container">
@@ -170,7 +170,7 @@ addBtn.addEventListener('click',function(){
             <div class="ticket-id">
                 #${id}
             </div>
-            <div class="actual-task" dataId="${id}" contenteditable="true">
+            <div class="actual-task" dataId="${id}" contenteditable="true" spellcheck="false">
             </div>`;
 
             //we cannot set the task by just giving in html in string for the tasks which include "\n and more than 1 space"
@@ -303,7 +303,7 @@ function loadTickets(color){
         <div class="ticket-id">
             #${currentTicketId}
         </div>
-        <div class="actual-task" dataId="${currentTicketId}" contenteditable="true">
+        <div class="actual-task" dataId="${currentTicketId}" contenteditable="true" spellcheck="false">
         </div>`;
 
         let actualTaskDiv = ticketDiv.querySelector('.actual-task');    //this will select the ticket's actualTask area

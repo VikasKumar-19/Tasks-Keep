@@ -6,11 +6,13 @@
 body{
     /* as body gives some margin by default */
     margin: 0;
-    background-color: #f8f3d5;
+    background-color: #fdeecd;
+    overflow-y: overlay;
 }
 
+
 .container{
-    height: 100vh;
+    height: auto;
     width: 100vw;
 }
 
@@ -18,7 +20,9 @@ body{
     height: 15vh;
     width: 100vw;
     background-color: #596275;
-
+    position: fixed;
+    top: 0;
+    left: 0;
     /* flex is used to align div boxes horizontally */
     display: flex;
     /* justify-content: center; */
@@ -27,9 +31,10 @@ body{
 }
 
 .grid{
+    margin-top: 15vh;
     height: auto;
     width: 100vw;
-    background-color: #f8f3d5;
+    /* background-color: #ffde95; */
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -120,8 +125,8 @@ body{
 }
 
 .head-title{
-    margin-left: 15%;
-    margin-right: 10%;
+    margin-left: 10%;
+    margin-right: 5%;
     font-size: 1.3rem;
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
     text-shadow: -5px 5px 4px #2f3542;
@@ -159,13 +164,26 @@ body{
     width: 88%;
     background-color: #ffeaa7;
     outline: none;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     padding: 10px;
 
     /* to prevent from overflow */
     overflow: auto; 
 }
+
+.task-inner-container::-webkit-scrollbar{
+    width: 13px;
+}
+
+.task-inner-container::-webkit-scrollbar-thumb{
+    background: #a86604; 
+    border-radius: 5px;
+}
+
+.task-inner-container::-webkit-scrollbar-thumb:hover {
+    background: rgb(145, 83, 3); 
+  }
 
 .init-font{
     color: dimgray;
@@ -236,7 +254,7 @@ body{
     width: 20rem;
     height: 12rem;
     margin: 10px;
-    box-shadow: 0px 0px 3px 1px rgb(70, 45, 12);
+    box-shadow: 0px 0px 3px 2px rgb(87, 70, 48);
 }
 
 .ticket-color{
@@ -261,11 +279,25 @@ body{
     height: 82%;
     padding: 5px;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #fdcb6e;
+    font-size: 1.2rem;
+    background-color: #fdd488;
     overflow: auto;
     overflow-wrap: break-word;
     outline: none;
 }
+
+.actual-task::-webkit-scrollbar{
+    width: 8px;
+}
+
+.actual-task::-webkit-scrollbar-thumb{
+    background: rgb(255, 145, 0); 
+    border-radius: 5px;
+}
+
+.actual-task::-webkit-scrollbar-thumb:hover {
+    background: #b34800; 
+  }
 
 .format-tools{
     width: 16%;
@@ -280,7 +312,7 @@ body{
 }
 
 .bold, .italic, .underline, .strike{
-    width: 22%;
+    width: 18%;
     border: none;
     outline: none;
     background-color: #2f3640;
